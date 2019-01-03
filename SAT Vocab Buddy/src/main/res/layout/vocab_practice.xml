@@ -3,6 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:navigationIcon="@drawable/ic_arrow_back"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
     <TextView
         android:id="@+id/wordProgress"
         android:layout_width="wrap_content"
@@ -10,7 +16,8 @@
 
         android:layout_above="@+id/progressBar"
         android:layout_alignRight="@+id/progressBar"
-        android:layout_marginBottom="-60dp"
+
+        android:layout_marginBottom="-30dp"
 
         android:text="3/7"
         android:textSize="20dp"/>
@@ -19,11 +26,14 @@
         android:id="@+id/progressBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="35dp"
+
+        android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
 
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
+
         android:progress="0" />
 
     <TextView
@@ -32,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/progressBar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="22dp"
         android:layout_marginHorizontal="35dp"
 
         android:textAlignment="center"
@@ -90,8 +100,10 @@
         android:id="@+id/checkAnsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_below="@+id/progressBar"
         android:layout_centerHorizontal="true"
+
         android:layout_marginTop="225dp"
 
         android:text="Did you get the correct answer?"
@@ -102,6 +114,7 @@
         android:id="@+id/correctBtn"
         android:layout_width="@dimen/circle_size"
         android:layout_height="@dimen/circle_size"
+
         android:layout_toRightOf="@id/checkAnsText"
         android:layout_below="@id/checkAnsText"
 
@@ -109,7 +122,7 @@
         android:layout_marginLeft="-110dp"
 
         android:background="@drawable/circle"
-        android:drawableTop="@android:drawable/ic_cab_done_holo_dark"
+        android:drawableTop="@drawable/ic_check"
         android:paddingTop="20dp"
         android:text="Yes"
         android:textColor="@color/white" />
@@ -119,20 +132,19 @@
         android:id="@+id/incorrectBtn"
         android:layout_width="@dimen/circle_size"
         android:layout_height="@dimen/circle_size"
+
         android:layout_toLeftOf="@id/checkAnsText"
         android:layout_below="@id/checkAnsText"
 
         android:layout_marginTop="25dp"
         android:layout_marginRight="-110dp"
+
         android:background="@drawable/circle"
-        android:drawableTop="@android:drawable/ic_clear_normal"
+        android:drawableTop="@drawable/ic_do_not_disturb_alt"
         android:paddingTop="20dp"
+
         android:text="No"
         android:textColor="@color/white"
         android:backgroundTint="@color/red"/>
-
-
-
-
 
 </RelativeLayout>

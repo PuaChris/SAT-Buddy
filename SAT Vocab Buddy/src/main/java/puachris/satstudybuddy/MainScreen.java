@@ -1,13 +1,16 @@
 package puachris.satstudybuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class MainScreen extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +18,6 @@ public class MainScreen extends AppCompatActivity {
         setContentView(R.layout.vocab_package_list);
 
         ListView mListView = (ListView) findViewById(R.id.listView);
-
 
         // Create Vocab_Packages
         VocabPackage test = new VocabPackage(1, 0, 10);
@@ -31,6 +33,19 @@ public class MainScreen extends AppCompatActivity {
 
         VocabListAdapter adapter = new VocabListAdapter(this, R.layout.vocab_package, vocabList);
         mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (position > -1)
+                {
+                    Log.i("test", "Item was clicked");
+                    Intent myIntent = new Intent(view.getContext(), VocabPractice.class);
+                    startActivityForResult(myIntent, position);
+                }
+            }
+        });
 
     }
 

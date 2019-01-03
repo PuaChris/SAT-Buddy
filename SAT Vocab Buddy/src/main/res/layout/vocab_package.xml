@@ -20,6 +20,7 @@
             android:textSize="@dimen/header_size"/>
 
         <View
+            android:id="@+id/divider"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_weight="1"
@@ -52,7 +53,7 @@
 
     <!--mProgressBar.setScaleY(3f);-->
 
-    <Button
+    <TextView
         android:id="@+id/practiceBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
