@@ -22,7 +22,7 @@
         </activity>
         
         <activity
-            android:name=".VocabPractice"
+            android:name=".VocabPracticeScreen"
             android:label="SAT Vocab Buddy"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 

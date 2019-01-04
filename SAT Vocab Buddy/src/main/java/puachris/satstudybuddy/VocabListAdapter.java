@@ -20,7 +20,8 @@ public class VocabListAdapter extends ArrayAdapter<VocabPackage> {
     private Context mContext;
     int mResource;
 
-    public VocabListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<VocabPackage> objects) {
+    public VocabListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<VocabPackage> objects)
+    {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
@@ -28,8 +29,8 @@ public class VocabListAdapter extends ArrayAdapter<VocabPackage> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+    {
         // Get vocab information
         int level = getItem(position).getLevel();
         int wordCount = getItem(position).getWordCount();

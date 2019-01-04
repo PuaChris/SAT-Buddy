@@ -1,14 +1,23 @@
 package puachris.satstudybuddy;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+/**
+ * OBJECT TO:
+ * HOLD A LIST OF WORD-DEFINITIONS
+ * KEEP TRACK OF NUMBER OF CORRECT WORDS USER
+ * KEEP TRACK OF TOTAL NUMBER OF WORDS IN PACKAGE
+ * DISPLAY PROGRESS OF NUMBER OF CORRECT WORDS
+ *  **/
 
-public class VocabPackage {
+import java.util.ArrayList;
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class VocabPackage implements Serializable {
     private int level;
     private int wordCount;
     private int wordsTotal;
     private int progress;
-    private ArrayList<String> wordList;
+    private ArrayList<WordDefinition> wordList;
 
     public VocabPackage(int level, int wordCount, int wordsTotal) {
         this.level = level;
@@ -24,16 +33,20 @@ public class VocabPackage {
         this.level = level;
     }
 
-    public ArrayList<String> getWordList() {
+    public ArrayList<WordDefinition> getWordList() {
         return wordList;
     }
 
-    public void setWordList(ArrayList<String> wordList) {
+    public void setWordList(ArrayList<WordDefinition> wordList) {
         this.wordList = wordList;
     }
 
     public int getWordCount() {
         return wordCount;
+    }
+
+    public void incrementWordCount() {
+        wordCount++;
     }
 
     public void setWordCount(int wordCount) {
@@ -55,4 +68,5 @@ public class VocabPackage {
     public void setProgress(int progress) {
         this.progress = progress;
     }
+
 }
