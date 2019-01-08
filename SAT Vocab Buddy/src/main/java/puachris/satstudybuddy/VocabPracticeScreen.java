@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -59,7 +60,8 @@ public class VocabPracticeScreen extends AppCompatActivity {
         Intent myIntent = getIntent();
         final VocabPackage vocabPackage = (VocabPackage) myIntent.getSerializableExtra("VocabPackage");
 
-        correctWordCount = vocabPackage.getWordCount();
+        correctWordCount = 0;
+        vocabPackage.setCorrectWordCount(0);
         totalWordCount   = vocabPackage.getWordsTotal();
         wordList         = vocabPackage.getWordList();
 
@@ -113,13 +115,15 @@ public class VocabPracticeScreen extends AppCompatActivity {
 
                 wordItr++;
 
-                if (wordItr < totalWordCount)
+                if (wordItr < totalWordCount) {
                     currentWord = wordList.get(wordItr);
-
+                    displayedWord.setText(currentWord.getWord());
+                }
                 // Exit activity after going through all words
                 else
                 {
                     wordItr = 0;
+                    sendNumCorrectWords(correctWordCount);
                     finish();
                 }
             }
@@ -136,21 +140,27 @@ public class VocabPracticeScreen extends AppCompatActivity {
                 incorrectBtn.setVisibility(View.INVISIBLE);
                 correctBtn.setVisibility(View.INVISIBLE);
 
-                vocabPackage.incrementWordCount();
-                correctWordCount=vocabPackage.getWordCount();
+
+                if (correctWordCount < totalWordCount) vocabPackage.incrementCorrectWordCount();
+
+
+                correctWordCount=vocabPackage.getCorrectWordCount();
 
                 wordProgress.setText(correctWordCount + "/" + totalWordCount);
                 progressBar.setProgress((correctWordCount*100)/totalWordCount);
 
+
                 wordItr++;
 
-                if (wordItr < totalWordCount)
+                if (wordItr < totalWordCount) {
                     currentWord = wordList.get(wordItr);
-
+                    displayedWord.setText(currentWord.getWord());
+                }
                 // Exit activity after going through all words
                 else
                 {
                     wordItr = 0;
+                    sendNumCorrectWords(correctWordCount);
                     finish();
                 }
 
@@ -165,6 +175,20 @@ public class VocabPracticeScreen extends AppCompatActivity {
     {
         onBackPressed();
         return true;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        sendNumCorrectWords(correctWordCount);
+        super.onBackPressed();
+    }
+
+    public void sendNumCorrectWords(int correctWordCount) {
+        Intent myIntent = new Intent();
+        myIntent.putExtra("CorrectWordCount", correctWordCount);
+        setResult(RESULT_OK, myIntent);
+        Log.e(TAG, "Correct word count is: " + correctWordCount);
     }
 
 }

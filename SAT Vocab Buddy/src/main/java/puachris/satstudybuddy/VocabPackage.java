@@ -14,14 +14,14 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class VocabPackage implements Serializable {
     private int level;
-    private int wordCount;
+    private int correctWordCount;
     private int wordsTotal;
     private int progress;
     private ArrayList<WordDefinition> wordList;
 
-    public VocabPackage(int level, int wordCount, int wordsTotal) {
+    public VocabPackage(int level, int correctWordCount, int wordsTotal) {
         this.level = level;
-        this.wordCount = wordCount;
+        this.correctWordCount = correctWordCount;
         this.wordsTotal = wordsTotal;
     }
 
@@ -41,16 +41,16 @@ public class VocabPackage implements Serializable {
         this.wordList = wordList;
     }
 
-    public int getWordCount() {
-        return wordCount;
+    public int getCorrectWordCount() {
+        return correctWordCount;
     }
 
-    public void incrementWordCount() {
-        wordCount++;
+    public void incrementCorrectWordCount() {
+        correctWordCount++;
     }
 
-    public void setWordCount(int wordCount) {
-        this.wordCount = wordCount;
+    public void setCorrectWordCount(int correctWordCount) {
+        this.correctWordCount = correctWordCount;
     }
 
     public int getWordsTotal() {
