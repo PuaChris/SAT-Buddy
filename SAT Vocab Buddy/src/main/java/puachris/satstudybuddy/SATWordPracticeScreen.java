@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -12,19 +11,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class VocabPracticeScreen extends AppCompatActivity {
-    int correctWordCount;
-    int totalWordCount;
-    ArrayList<WordDefinition> wordList;
-    WordDefinition currentWord;
+public class SATWordPracticeScreen extends AppCompatActivity {
+    int numCorrectWords;
+    int numTotalWords;
     int wordItr = 0;
+    SATWord currentWord;
+    ArrayList<SATWord> satWordList;
 
-    private static final String TAG = "VocabPracticeScreen";
+    private static final String TAG = "SATWordPracticeScreen";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vocab_practice);
+        setContentView(R.layout.sat_word_practice);
 
         /********************* Initializing Toolbar and Views on screen *****************************/
 
@@ -46,7 +45,7 @@ public class VocabPracticeScreen extends AppCompatActivity {
         final Button incorrectBtn = (Button) findViewById(R.id.incorrectBtn);
         final Button correctBtn   = (Button) findViewById(R.id.correctBtn);
 
-        final ProgressBar progressBar     = (ProgressBar) findViewById(R.id.progressBar);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         // Setting buttons and text to hidden so they can be revealed later
         exampleOrAnswer.setVisibility(View.INVISIBLE);
@@ -55,23 +54,23 @@ public class VocabPracticeScreen extends AppCompatActivity {
         correctBtn.setVisibility(View.INVISIBLE);
 
 
-        /*********** Passing intent and VocabPackages from MainScreen to PracticeScreen ****************/
+        /*********** Passing intent and VocabPackages from SATDictionaryMainScreen to PracticeScreen ****************/
 
         Intent myIntent = getIntent();
-        final VocabPackage vocabPackage = (VocabPackage) myIntent.getSerializableExtra("VocabPackage");
+        final SATWordPackage SATWordPackage = (SATWordPackage) myIntent.getSerializableExtra("SATWordPackage");
 
-        correctWordCount = 0;
-        vocabPackage.setCorrectWordCount(0);
-        totalWordCount   = vocabPackage.getWordsTotal();
-        wordList         = vocabPackage.getWordList();
+        numCorrectWords = 0;
+        SATWordPackage.setCorrectWordCount(0);
+        numTotalWords = SATWordPackage.getWordsTotal();
+        satWordList = SATWordPackage.getSatWordList();
 
-        currentWord = wordList.get(wordItr);
+        currentWord = satWordList.get(wordItr);
 
         // Display current word and progress
         displayedWord.setText(currentWord.getWord());
 
-        wordProgress.setText(correctWordCount + "/" + totalWordCount);
-        progressBar.setProgress((correctWordCount*100)/totalWordCount);
+        wordProgress.setText(numCorrectWords + "/" + numTotalWords);
+        progressBar.setProgress((numCorrectWords *100)/ numTotalWords);
 
 
         /************************* Button functionality in PracticeScreen *******************************/
@@ -115,15 +114,17 @@ public class VocabPracticeScreen extends AppCompatActivity {
 
                 wordItr++;
 
-                if (wordItr < totalWordCount) {
-                    currentWord = wordList.get(wordItr);
+                if (wordItr < numTotalWords)
+                {
+                    currentWord = satWordList.get(wordItr);
                     displayedWord.setText(currentWord.getWord());
                 }
+
                 // Exit activity after going through all words
                 else
                 {
                     wordItr = 0;
-                    sendNumCorrectWords(correctWordCount);
+                    sendNumCorrectWords(numCorrectWords);
                     finish();
                 }
             }
@@ -141,26 +142,29 @@ public class VocabPracticeScreen extends AppCompatActivity {
                 correctBtn.setVisibility(View.INVISIBLE);
 
 
-                if (correctWordCount < totalWordCount) vocabPackage.incrementCorrectWordCount();
+                if (numCorrectWords < numTotalWords)
+                {
+                    SATWordPackage.incrementCorrectWordCount();
+                }
 
+                numCorrectWords = SATWordPackage.getCorrectWordCount();
 
-                correctWordCount=vocabPackage.getCorrectWordCount();
-
-                wordProgress.setText(correctWordCount + "/" + totalWordCount);
-                progressBar.setProgress((correctWordCount*100)/totalWordCount);
+                wordProgress.setText(numCorrectWords + "/" + numTotalWords);
+                progressBar.setProgress((numCorrectWords *100)/ numTotalWords);
 
 
                 wordItr++;
 
-                if (wordItr < totalWordCount) {
-                    currentWord = wordList.get(wordItr);
+                if (wordItr < numTotalWords)
+                {
+                    currentWord = satWordList.get(wordItr);
                     displayedWord.setText(currentWord.getWord());
                 }
                 // Exit activity after going through all words
                 else
                 {
                     wordItr = 0;
-                    sendNumCorrectWords(correctWordCount);
+                    sendNumCorrectWords(numCorrectWords);
                     finish();
                 }
 
@@ -179,16 +183,17 @@ public class VocabPracticeScreen extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed() {
-        sendNumCorrectWords(correctWordCount);
+    public void onBackPressed()
+    {
+        sendNumCorrectWords(numCorrectWords);
         super.onBackPressed();
     }
 
-    public void sendNumCorrectWords(int correctWordCount) {
+    public void sendNumCorrectWords(int correctWordCount)
+    {
         Intent myIntent = new Intent();
         myIntent.putExtra("CorrectWordCount", correctWordCount);
         setResult(RESULT_OK, myIntent);
-        Log.e(TAG, "Correct word count is: " + correctWordCount);
     }
 
 }

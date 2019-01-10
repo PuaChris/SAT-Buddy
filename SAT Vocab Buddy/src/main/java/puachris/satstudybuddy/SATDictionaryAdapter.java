@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class VocabListAdapter extends ArrayAdapter<VocabPackage> {
+public class SATDictionaryAdapter extends ArrayAdapter<SATWordPackage> {
 
-    private static final String TAG = "VocabListAdapter";
+    private static final String TAG = "SATDictionaryAdapter";
     private Context mContext;
     int mResource;
 
-    public VocabListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<VocabPackage> objects)
+    public SATDictionaryAdapter(@NonNull Context context, int resource, @NonNull ArrayList<SATWordPackage> objects)
     {
         super(context, resource, objects);
         mContext = context;
@@ -34,8 +34,8 @@ public class VocabListAdapter extends ArrayAdapter<VocabPackage> {
         int wordCount = getItem(position).getCorrectWordCount();
         int wordsTotal = getItem(position).getWordsTotal();
 
-        // Create VocabPackage object with new information
-        VocabPackage vocab = new VocabPackage(level, wordCount, wordsTotal);
+        // Create SATWordPackage object with new information
+        SATWordPackage vocab = new SATWordPackage(level, wordCount, wordsTotal);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -50,7 +50,6 @@ public class VocabListAdapter extends ArrayAdapter<VocabPackage> {
         wordProgress.setText(wordCount + "/" + wordsTotal);
         progressBar.setProgress( (wordCount*100)/wordsTotal);
         divider.setVisibility(View.INVISIBLE);
-
 
         return convertView;
     }

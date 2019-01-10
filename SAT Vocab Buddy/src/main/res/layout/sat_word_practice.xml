@@ -63,7 +63,8 @@
         android:layout_marginHorizontal="35dp"
 
         android:text="This is an example of a sentence/answer"
-        android:textSize="17dp"/>
+        android:textSize="17dp"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/exampleBtn"

@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 /*** OBJECT TO HOLD THE WORD ITSELF, AN EXAMPLE USAGE OF THE WORD, AND ITS DEFINITION ***/
 
-public class WordDefinition implements Serializable {
+public class SATWord implements Serializable {
     private String word;
     private String example;
     private String definition;
 
-    public WordDefinition(String word, String example, String definition) {
+    public SATWord(String word, String example, String definition) {
         this.word = word;
         this.example = example;
         this.definition = definition;

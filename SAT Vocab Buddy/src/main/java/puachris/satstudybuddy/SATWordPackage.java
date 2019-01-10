@@ -12,17 +12,24 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class VocabPackage implements Serializable {
+public class SATWordPackage implements Serializable {
     private int level;
     private int correctWordCount;
     private int wordsTotal;
     private int progress;
-    private ArrayList<WordDefinition> wordList;
+    private ArrayList<SATWord> satWordList;
 
-    public VocabPackage(int level, int correctWordCount, int wordsTotal) {
+    public SATWordPackage(int level, int correctWordCount, int wordsTotal) {
         this.level = level;
         this.correctWordCount = correctWordCount;
         this.wordsTotal = wordsTotal;
+    }
+
+    public SATWordPackage(int level, int correctWordCount, int wordsTotal, ArrayList<SATWord> satWordList) {
+        this.level = level;
+        this.correctWordCount = correctWordCount;
+        this.wordsTotal = wordsTotal;
+        this.satWordList = satWordList;
     }
 
     public int getLevel() {
@@ -33,12 +40,15 @@ public class VocabPackage implements Serializable {
         this.level = level;
     }
 
-    public ArrayList<WordDefinition> getWordList() {
-        return wordList;
+    public ArrayList<SATWord> getSatWordList() {
+        return satWordList;
     }
 
-    public void setWordList(ArrayList<WordDefinition> wordList) {
-        this.wordList = wordList;
+    public void setSatWordList(ArrayList<SATWord> satWordList) {
+
+        // Perform a shallow copy of the passed in satWordList
+        ArrayList<SATWord> temp = new ArrayList<SATWord>(satWordList);
+        this.satWordList = temp;
     }
 
     public int getCorrectWordCount() {
